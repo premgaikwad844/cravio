@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chatbot (OpenRouter)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="chatbot-widget">
+    <button id="chatbot-toggle" onclick="toggleChatbotWindow()" title="Open Chatbot">
+      <span class="chatbot-icon"></span>
+    </button>
+    <div class="chatbot-window" id="chatbot-window">
+      <div class="chat-container">
+        <div class="chat-header">
+          <h2>Cravio Chatbot</h2>
+        </div>
+        <div class="prompt-bar">
+          <button class="prompt-btn" onclick="sendPrompt('Tell me a joke')">Tell me a joke</button>
+          <button class="prompt-btn" onclick="sendPrompt('Summarize this text: The sun rises in the east and sets in the west.')">Summarize</button>
+          <button class="prompt-btn" onclick="sendPrompt('What is the weather today?')">Weather</button>
+        </div>
+        <div id="chat-box"></div>
+        <div class="input-area">
+          <input type="text" id="user-input" placeholder="Type your message here..." onkeydown="if(event.key==='Enter'){sendMessage();}" />
+          <button onclick="sendMessage()">Send</button>
+          <button id="clear-btn" onclick="clearChat()" title="Clear All">Clear</button>
+          <button id="input-copy-btn" class="copy-btn" title="Copy"><span class="copy-icon"></span></button>
+        </div>
+      </div>
+    </div>
+    <div id="welcome-popup" class="welcome-popup">
+      <div class="welcome-content">
+        <p>Hi! Need help? Chat with me.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html> 

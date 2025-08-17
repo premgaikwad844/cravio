@@ -1,0 +1,272 @@
+<?php
+$servername = "sql109.infinityfree.com";
+$username = "if0_39329540";
+$password = "Prem28831924";
+$dbname = "if0_39329540_login_db12";
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+<?php include 'header.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | fitmeal</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:700,600,400&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Mobile-Only Menubar Start -->
+<style>
+@media (max-width: 768px) {
+  .cravio-mobile-menubar, .cravio-mobile-hamburger {
+    display: block;
+  }
+  .cravio-mobile-menubar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 2000;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    padding: 24px 0 12px 0;
+    display: none;
+  }
+  .cravio-mobile-menubar.active {
+    display: block;
+  }
+  .cravio-mobile-menubar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px 0;
+    text-align: center;
+  }
+  .cravio-mobile-menubar ul li {
+    margin: 12px 0;
+  }
+  .cravio-mobile-menubar a {
+    text-decoration: none;
+    color: #23272b;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 20px;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+  .cravio-mobile-menubar a.active,
+  .cravio-mobile-menubar a:hover {
+    background: #97c933;
+    color: #fff;
+  }
+  .cravio-mobile-hamburger {
+    position: fixed;
+    top: 16px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    z-index: 2100;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
+  .cravio-mobile-hamburger span {
+    display: block;
+    height: 4px;
+    width: 100%;
+    background: #23272b;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+}
+@media (min-width: 769px) {
+  .cravio-mobile-menubar, .cravio-mobile-hamburger {
+    display: none !important;
+  }
+}
+</style>
+<button class="cravio-mobile-hamburger" aria-label="Open menu" onclick="cravioToggleMobileMenu()">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+<div class="cravio-mobile-menubar" id="cravioMobileMenu">
+  <ul>
+    <li><a href="main.php">Home</a></li>
+    <li><a href="about.php">About us</a></li>
+    <li><a href="search.php">Products</a></li>
+    <li><a href="contact.php" class="active">Contact Us</a></li>
+  </ul>
+  <?php if (isset($_SESSION['user_id'])): ?>
+      <a href="logout.php" class="navbar-btn" style="background: #e53935; color: #fff; border-radius: 20px; padding: 8px 20px; display: inline-block; font-weight: bold;">Logout</a>
+  <?php endif; ?>
+</div>
+<script>
+function cravioToggleMobileMenu() {
+  var menu = document.getElementById('cravioMobileMenu');
+  menu.classList.toggle('active');
+}
+document.addEventListener('click', function(event) {
+  var menu = document.getElementById('cravioMobileMenu');
+  var hamburger = document.querySelector('.cravio-mobile-hamburger');
+  if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+    menu.classList.remove('active');
+  }
+});
+document.querySelectorAll('.cravio-mobile-menubar a').forEach(function(link) {
+  link.addEventListener('click', function() {
+    document.getElementById('cravioMobileMenu').classList.remove('active');
+  });
+});
+</script>
+<!-- Mobile-Only Menubar End -->
+    <nav class="navbar" style="position: relative; z-index: 10;">
+        <div class="navbar-logo-group">
+            <img src="f2-removebg-preview.png" alt="fitmeal logo" class="navbar-logo-icon">
+            <div class="navbar-logo-text">
+                <span class="navbar-logo-title">fitmeal</span>
+                <span class="navbar-logo-subtitle">food delivery</span>
+            </div>
+        </div>
+        <ul class="navbar-links">
+            <li><a href="main.php">Home <span class="arrow">&#8250;</span></a></li>
+            <li><a href="about.php">About us <span class="arrow">&#8250;</span></a></li>
+            <li><a href="search.php">Products <span class="arrow">&#8250;</span></a></li>
+            <li><a href="contact.php" class="active">Contact Us <span class="arrow">&#8250;</span></a></li>
+        </ul>
+        <a href="#get-menu" class="navbar-btn">Get Menu</a>
+    </nav>
+    <!-- Hero/Banner Section -->
+    <section class="hero-banner" style="position:relative; background:#888a8e; min-height:320px; display:flex; align-items:center; justify-content:center; flex-direction:column;">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80" alt="Contact Banner" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.45; z-index:1;">
+        <div style="position:relative; z-index:2; text-align:center; width:100%;">
+            <h1 style="font-size:3rem; color:#fff; font-weight:800; margin-bottom:0.5rem;">Contact Us</h1>
+            <div class="breadcrumbs" style="font-size:1.1rem; color:#d0e17d; font-weight:700;">
+                <a href="main.html" style="color:#d0e17d; text-decoration:none;">Home</a>
+                <span style="color:#fff; margin:0 8px;">|</span>
+                <span style="color:#fff;">Contact</span>
+            </div>
+        </div>
+    </section>
+    <main style="min-height: 80vh; background: #fafafa; padding: 0 0 60px 0;">
+        <section style="max-width: 1000px; margin: 40px auto 0 auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px rgba(151,201,51,0.07); padding: 48px 32px; display: flex; flex-wrap: wrap; gap: 40px; justify-content: center;">
+            <div style="flex: 1 1 340px; min-width: 280px; max-width: 440px; display: flex; flex-direction: column; justify-content: center;">
+                <h2 style="color: #97c933; font-size: 2rem; font-weight: 700; margin-bottom: 1.2em;">Send us a message</h2>
+                <form style="display: flex; flex-direction: column; gap: 18px;" aria-label="Contact form">
+                    <label for="contact-name" style="font-weight:600; color:#23272b; margin-bottom:2px;">Your Name</label>
+                    <input id="contact-name" name="name" type="text" placeholder="Enter your name" required aria-required="true" aria-label="Your Name" style="padding: 14px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; background:#fff; color:#23272b;">
+                    <label for="contact-email" style="font-weight:600; color:#23272b; margin-bottom:2px;">Your Email</label>
+                    <input id="contact-email" name="email" type="email" placeholder="Enter your email" required aria-required="true" aria-label="Your Email" style="padding: 14px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; background:#fff; color:#23272b;">
+                    <label for="contact-message" style="font-weight:600; color:#23272b; margin-bottom:2px;">Your Message</label>
+                    <textarea id="contact-message" name="message" placeholder="Type your message here..." rows="5" required aria-required="true" aria-label="Your Message" style="padding: 14px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; resize: vertical; background:#fff; color:#23272b;"></textarea>
+                    <button type="submit" class="search-cta-btn fade-in-card" style="margin-top: 8px;"><span>Send Message</span></button>
+                    <div id="form-success" style="display:none; color:#97c933; font-weight:600; margin-top:10px;">Thank you for contacting us!</div>
+                </form>
+            </div>
+            <div style="flex: 1 1 260px; min-width: 220px; max-width: 340px; display: flex; flex-direction: column; gap: 28px; justify-content: center;">
+                <div style="background:#f8f9fa; border-radius:12px; box-shadow:0 2px 8px rgba(151,201,51,0.04); padding:24px 18px; display:flex; align-items:center; gap:16px;" class="fade-in-card">
+                    <span style="font-size: 2rem; color: #97c933;">📍</span>
+                    <div><b>Our location:</b><br>Goldschmidtstraße 13, 04103 Leipzig</div>
+                </div>
+                <div style="background:#f8f9fa; border-radius:12px; box-shadow:0 2px 8px rgba(151,201,51,0.04); padding:24px 18px; display:flex; align-items:center; gap:16px;" class="fade-in-card">
+                    <span style="font-size: 2rem; color: #97c933;">📞</span>
+                    <div><b>Phones:</b><br>+49078-039-23-11<br>+49078-028-55-60</div>
+                </div>
+                <div style="background:#f8f9fa; border-radius:12px; box-shadow:0 2px 8px rgba(151,201,51,0.04); padding:24px 18px; display:flex; align-items:center; gap:16px;" class="fade-in-card">
+                    <span style="font-size: 2rem; color: #97c933;">✉️</span>
+                    <div><b>Email:</b><br>info@fitmeal.com</div>
+                </div>
+                <div style="background:#f8f9fa; border-radius:12px; box-shadow:0 2px 8px rgba(151,201,51,0.04); padding:24px 18px; display:flex; align-items:center; gap:16px;" class="fade-in-card">
+                    <span style="font-size: 2rem; color: #97c933;">⏰</span>
+                    <div><b>Contact Hours:</b><br>Mon-Fri: 9:00am - 6:00pm<br>Sat: 10:00am - 2:00pm<br>Sun: Closed</div>
+                </div>
+                <div style="margin-top:18px; display:flex; gap:16px; justify-content:center;">
+                    <a href="https://facebook.com" aria-label="Facebook" target="_blank" style="color:#4267B2; font-size:1.7em;"><span class="footer-icon">&#xf09a;</span></a>
+                    <a href="https://twitter.com" aria-label="Twitter" target="_blank" style="color:#1DA1F2; font-size:1.7em;"><span class="footer-icon">&#xf099;</span></a>
+                    <a href="https://instagram.com" aria-label="Instagram" target="_blank" style="color:#C13584; font-size:1.7em;"><span class="footer-icon">&#xf16d;</span></a>
+                    <a href="mailto:info@fitmeal.com" aria-label="Email" style="color:#97c933; font-size:1.7em;"><span class="footer-icon">&#xf0e0;</span></a>
+                </div>
+            </div>
+        </section>
+        <!-- Google Map Embed -->
+        <section style="max-width: 1000px; margin: 32px auto 0 auto; border-radius: 18px; overflow: hidden; box-shadow: 0 2px 12px rgba(151,201,51,0.04);">
+            <iframe title="Google Map" aria-label="Google Map" src="https://www.google.com/maps?q=Goldschmidtstraße+13,+04103+Leipzig&output=embed" width="100%" height="320" frameborder="0" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </section>
+        <!-- FAQ Section -->
+        <section style="max-width: 1000px; margin: 40px auto 0 auto; background: #fff; border-radius: 18px; box-shadow: 0 2px 12px rgba(151,201,51,0.04); padding: 36px 32px;">
+            <h2 style="color: #97c933; font-size: 1.7rem; font-weight: 700; margin-bottom: 1.2em; text-align: center;">Frequently Asked Questions</h2>
+            <div style="display: flex; flex-direction: column; gap: 18px;">
+                <div><b>How soon will I get a reply?</b><br>We aim to respond to all messages within 24 hours on business days.</div>
+                <div><b>Can I visit your office?</b><br>Yes, but please schedule an appointment in advance.</div>
+                <div><b>Do you offer support on weekends?</b><br>We offer limited support on Saturdays. Sundays are closed.</div>
+                <div><b>How do I track my order?</b><br>Once your order is placed, you’ll receive a tracking link by email.</div>
+            </div>
+        </section>
+        <div style="text-align:center; margin: 40px 0 0 0;">
+            <a href="main.html" style="color: #97c933; font-weight: 700; font-size: 1.1rem; text-decoration: underline;">&larr; Back to Home</a>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="footer" style="background:#23272b; color:#c6e265; padding:60px 0 30px 0; margin-top:60px;">
+        <div class="footer-content" style="max-width:1400px; margin:0 auto; display:flex; flex-wrap:wrap; gap:40px; justify-content:space-between;">
+            <div style="flex:1 1 220px; min-width:220px;">
+                <img src="f1-removebg-preview.png" alt="fitmeal logo" style="width:120px; margin-bottom:18px;">
+                <p style="color:#fff; font-size:1rem; margin-bottom:18px;">Integer maximus accumsan nunc, sit amet tempor lectus facilisis eu. Cras vel elit felis. Vestibulum convallis ipsum id aliquam varius.</p>
+                <div style="display:flex; gap:12px;">
+                    <a href="https://facebook.com" aria-label="Facebook" target="_blank" style="color:#4267B2;"><span class="footer-icon">&#xf09a;</span></a>
+                    <a href="https://twitter.com" aria-label="Twitter" target="_blank" style="color:#1DA1F2;"><span class="footer-icon">&#xf099;</span></a>
+                    <a href="https://instagram.com" aria-label="Instagram" target="_blank" style="color:#C13584;"><span class="footer-icon">&#xf16d;</span></a>
+                    <a href="mailto:info@fitmeal.com" aria-label="Email" style="color:#97c933;"><span class="footer-icon">&#xf0e0;</span></a>
+                </div>
+            </div>
+            <div style="flex:1 1 180px; min-width:180px;">
+                <h3 style="color:#c6e265; font-size:1.3rem; margin-bottom:18px;">Explore</h3>
+                <ul style="list-style:none; padding:0; color:#fff;">
+                    <li><a href="main.html" style="color:#fff; text-decoration:none;">Home</a></li>
+                    <li><a href="about.html" style="color:#fff; text-decoration:none;">About Us</a></li>
+                    <li><a href="search.html" style="color:#fff; text-decoration:none;">Products</a></li>
+                    <li><a href="contact.html" style="color:#fff; text-decoration:none;">Contact Us</a></li>
+                </ul>
+            </div>
+            <div style="flex:1 1 220px; min-width:220px;">
+                <h3 style="color:#c6e265; font-size:1.3rem; margin-bottom:18px;">Contact info</h3>
+                <div style="color:#fff;">
+                    <div style="margin-bottom:10px;"><b>Our location:</b><br>Goldschmidtstraße 13, 04103 Leipzig</div>
+                    <div><b>Phones:</b><br>+49078-039-23-11<br>+49078-028-55-60</div>
+                </div>
+            </div>
+            <div style="flex:1 1 220px; min-width:220px;">
+                <h3 style="color:#c6e265; font-size:1.3rem; margin-bottom:18px;">Instagram posts</h3>
+                <!-- Placeholder for Instagram posts -->
+            </div>
+        </div>
+        <div style="text-align:center; color:#fff; margin-top:40px; font-size:1rem;">
+            Like-themes © All Rights Reserved - 2019 - <a href="#" style="color:#c6e265;">Purchase</a>
+        </div>
+    </footer>
+    <button id="backToTopBtn" title="Go to top" class="back-to-top-btn" aria-label="Back to top">
+        <img src="https://cdn-icons-png.flaticon.com/128/664/664866.png" alt="Up Arrow" style="width: 60%; height: 60%; display: block; margin: auto; transform: rotate(-90deg);" />
+    </button>
+    <script>
+const backToTopBtn = document.getElementById('backToTopBtn');
+window.addEventListener('scroll', function() {
+    if (window.scrollY > 200) {
+        backToTopBtn.style.display = 'block';
+    } else {
+        backToTopBtn.style.display = 'none';
+    }
+});
+backToTopBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+</body>
+</html> 

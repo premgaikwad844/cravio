@@ -1,0 +1,32 @@
+-- SQL Commands to add 'added_by' column to food_items table
+-- Run these commands in phpMyAdmin or MySQL command line
+
+-- 1. Check if column exists (optional)
+SELECT COLUMN_NAME 
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_SCHEMA = 'login_db12' 
+AND TABLE_NAME = 'food_items' 
+AND COLUMN_NAME = 'added_by';
+
+-- 2. Add the added_by column
+ALTER TABLE food_items 
+ADD COLUMN added_by VARCHAR(100) DEFAULT 'Unknown' 
+AFTER created_at;
+
+-- 3. Update existing records (optional - only if you have existing data)
+UPDATE food_items 
+SET added_by = 'Unknown' 
+WHERE added_by IS NULL OR added_by = '';
+
+-- 4. Verify the column was added
+DESCRIBE food_items;
+
+-- 5. Check sample data
+SELECT id, food_name, added_by, created_at 
+FROM food_items 
+ORDER BY created_at DESC 
+LIMIT 5;
+
+-- 6. Test the new column (optional)
+INSERT INTO food_items (food_name, cuisine_type, price_range, city, state, meal_type, dietary_preference, spice_level, popularity, cooking_style, added_by) 
+VALUES ('Test Food', 'Indian', 'Budget', 'Test City', 'Test State', 'Lunch', 'Vegetarian', 'Mild', 'Most Popular', 'Fried', 'Test User'); 
